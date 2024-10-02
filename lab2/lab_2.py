@@ -111,8 +111,8 @@ class ForwardKinematics(Node):
 
        # TODO: Extract the end-effector position. The end effector position is a 3x3 matrix (not in homogenous coordinates)
        # project to homogenous space
-       joint_pos = np.array([0, 0, 0, 1])
-       joint_pos[:3] = self.joint_position
+       joint_pos = np.array([[0, 0, 0, 1]])
+       joint_pos[:, :3] = self.joint_position
        end_effector_position = T_0_ee @ joint_pos.T
        # project back to euclidean space
        end_effector_position = (end_effector_position[:3] / end_effector_position[-1]).T
