@@ -76,7 +76,7 @@ def main(args=None):
     command_publisher = CommandLinePublisher()
 
     # Set up the stream and audio processing
-    print("Listening for speech every 5 seconds. Say 'exit' to stop.")
+    print("Listening for speech every 8 seconds. Say 'exit' to stop.")
 
     try:
         # Continuously capture audio and process it
@@ -101,7 +101,9 @@ def main(args=None):
             rclpy.spin_once(command_publisher, timeout_sec=0.1)
 
             # Delay for 0.9 seconds
-            time.sleep(dur)
+            for i in range(20, 0, -1):
+                print(f"Performing action; {i} seconds until the next recording starts", end="\r", flush=True)
+                time.sleep(1)
 
     except KeyboardInterrupt:
         print("Interrupted by user. Exiting...")

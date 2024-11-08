@@ -5,7 +5,7 @@ import pyttsx3
 from openai import OpenAI
 import karel  # Importing your KarelPupper API
 
-client = OpenAI(api_key='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')  # Set your OpenAI API key here
+client = OpenAI(api_key='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')  # Set your OpenAI API key here
 
 class GPT4ConversationNode(Node):
     def __init__(self):
@@ -53,7 +53,7 @@ class GPT4ConversationNode(Node):
     def get_gpt4_response(self, query):
         try:
             # Making the API call to GPT-4 using OpenAI's Python client
-            prompt = "You are a quadruped robotic dog. When I ask you to perform an action, you will describe on a high level what you should do to acheive this action. Respond in python code. You have access to pupper.move(), pupper.turn_left(), pupper.turn_right(), pupper.bark(), and pupper.stop(). You should only output your answer in these calls without giving any natural language explanation."
+            prompt = "You are a quadruped robotic dog. When I ask you to perform an action, you will describe on a high level what you should do to acheive this action. Respond in python code. You have access to pupper.move(), pupper.move_back(), pupper.run(), pupper.turn_left(), pupper.turn_right(), pupper.crab_walk_left(), pupper.crab_walk_right(), pupper.bark(), and pupper.stop(). You also have pupper.dance(), which performs a rickroll. You should only output your answer in these calls without giving any natural language explanation."
             response = client.chat.completions.create(model="gpt-4",  # Model identifier, assuming GPT-4 is used
             messages=[
                 {"role": "system", "content": prompt},
@@ -83,7 +83,9 @@ class GPT4ConversationNode(Node):
         self.get_logger().info(f"Response: {response}")
         # TODO: Implement the robot command execution logic, in a large if-else statement. Your conditionals should be set based on the expected commands from GPT-4, and the corresponding methods should be called on the KarelPupper object.
         for line in response.splitlines():
-            if "move" in line:
+            if "move_back" in line:
+                self.pupper.move_back()
+            elif "move" in line:
                 self.pupper.move()
             elif "turn_left" in line:
                 self.pupper.turn_left()
@@ -93,6 +95,14 @@ class GPT4ConversationNode(Node):
                 self.pupper.bark()
             elif "stop" in line:
                 self.pupper.stop()
+            elif "dance" in line:
+                self.pupper.dance()
+            elif "run" in line:
+                self.pupper.run()
+            elif "crab_walk_left" in line:
+                self.pupper.crab_walk_left()
+            elif "crab_walk_right" in line:
+                self.pupper.crab_walk_right()
             else:
                 continue
         print("Execution Finished.")
