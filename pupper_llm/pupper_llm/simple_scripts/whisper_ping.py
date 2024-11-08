@@ -4,7 +4,7 @@ from std_msgs.msg import String
 import sounddevice as sd
 from openai import OpenAI
 
-client = OpenAI(api_key='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')
+client = OpenAI(api_key='hidden')
 import numpy as np
 import time
 import io
